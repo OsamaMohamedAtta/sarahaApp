@@ -22,13 +22,6 @@ const userSchema = new mongoose.Schema({
     facebookId:String,
     publicImageId:String
 })
-// func to hash the password at the signUp time 
-if(this.password){
-    userSchema.pre("save" , function(next) {
-        this.password=bcrypt.hashSync(this.password, parseInt(process.env.SALTROUNDS));
-         next();
-    })
-}
 
 
 const userModel = mongoose.model('user', userSchema);
