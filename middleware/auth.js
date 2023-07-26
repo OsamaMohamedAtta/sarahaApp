@@ -8,8 +8,8 @@ const auth = () => {
             if (authrization) {
                 if (authrization.startsWith(process.env.SECRETKEYTOKEN)) {
                     const userToken = authrization.split(process.env.SECRETKEYTOKEN)[1]
-                    const { email } = jwt.verify(userToken, process.env.TOKENKEY)
-                    const userFounded = await userModel.findOne({ email })
+                    const { id } = jwt.verify(userToken, process.env.TOKENKEY)
+                    const userFounded = await userModel.findById(id)
                     if (userFounded) {
                         if (userFounded.confirmed) {
                             req.userData = userFounded
