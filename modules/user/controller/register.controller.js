@@ -23,6 +23,7 @@ const signUp = async (req, res) => {
                 req.body.publicImageId = public_id
                 fs.unlinkSync(imageURI);
             }
+            req.body.password = bcrypt.hashSync(req.body.password, parseInt(process.env.SALTROUNDS));
             const addUser = new userModel(req.body);
             await addUser.save();
             var userToken = jwt.sign({ email }, process.env.TOKENKEY, { expiresIn: '120s' });
