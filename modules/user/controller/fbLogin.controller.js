@@ -8,6 +8,7 @@ const fbSignUp = async (req, res) => {
         const founded = await userModel.findOne({ facebookId })
         console.log(founded);
         if (!founded) {
+            req.body.confirmed=true
             const faceLogin = new userModel(req.body)
             const addedUser = await faceLogin.save()
             res.status(201).json({ message: "added user ", addedUser })
